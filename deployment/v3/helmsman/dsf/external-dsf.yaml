@@ -179,12 +179,12 @@ apps:
     version: 12.0.1
     chart: mosip/softhsm
     set:
-    # resources.limits.cpu: "250m"
-    # resources.limits.memory: "1Gi"
-    resources.requests.cpu: "100m"
-    resources.requests.memory: "20Mi"
-    wait: true
-    priority: -12
+      # resources.limits.cpu: "250m"
+      # resources.limits.memory: "1Gi"
+      resources.requests.cpu: "100m"
+      resources.requests.memory: "20Mi"
+      wait: true
+      priority: -12
 
   softhsm-ida:
     namespace: softhsm
@@ -192,12 +192,12 @@ apps:
     version: 12.0.1
     chart: mosip/softhsm
     set:
-    # resources.limits.cpu: "250m"
-    # resources.limits.memory: "1Gi"
-    resources.requests.cpu: "100m"
-    resources.requests.memory: "20Mi"
-    wait: true
-    priority: -11
+      # resources.limits.cpu: "250m"
+      # resources.limits.memory: "1Gi"
+      resources.requests.cpu: "100m"
+      resources.requests.memory: "20Mi"
+      wait: true
+      priority: -11
 
   minio:
     namespace: minio
@@ -272,7 +272,6 @@ apps:
       transactionStateLogReplicationFactor: "3"
       numPartitions: "20"
       replicaCount: "5"
-      sidecars: {}
       autoCreateTopicsEnable: "true"
       deleteTopicEnable: "true"
       persistence.enabled: "true"
