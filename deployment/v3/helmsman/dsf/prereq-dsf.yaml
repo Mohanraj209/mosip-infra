@@ -40,10 +40,10 @@ apps:
     version: 103.1.0+up45.31.1
     chart: mosip/rancher-monitoring
     set:
-      grafana.global.cattle.clusterId: "c-m-f4hpjnjt"
-      global.cattle.clusterId: "c-m-f4hpjnjt"
+      grafana.global.cattle.clusterId: "c-m-j4jlphlt"
+      global.cattle.clusterId: "c-m-j4jlphlt"
     wait: true
-    valuesFile: https://raw.githubusercontent.com/mosip/k8s-infra/refs/heads/develop/monitoring/values.yaml    
+    valuesFile: "$WORKDIR/utils/monitoring_values.yaml"  
     priority: -5
     timeout: 600
     hooks:
@@ -54,9 +54,19 @@ apps:
     enabled: true
     version: 17.9.25
     chart: mosip/elasticsearch
+    set:
+      global.kibanaEnabled: "true"
+      data.heapSize: "728m"
+      data.persistence.enabled: "true"
+      data.persistence.size: "64Gi"
+      data.resources.requests.memory: "512Mi"
+      master.heapSize: "1024m"
+      master.persistence.enabled: "true"
+      master.persistence.size: "4Gi"
+      master.resources.requests.memory: "728Mi"
+      kibana.persistence.enabled: "false"
     wait: true
     priority: -4
-    valuesFile: https://raw.githubusercontent.com/mosip/k8s-infra/refs/heads/develop/logging/es_values.yaml
 
   istio-addons-logging:
     namespace: cattle-logging-system 
