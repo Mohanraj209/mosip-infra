@@ -63,13 +63,13 @@ function installing_all() {
 
     echo "Applying additional configurations..."
     # Apply additional configurations
-    kubectl apply -n ${NAMESPACES[KEYMGR]} -f ../utils/idle_timeout_envoyfilter.yaml
+    kubectl apply -n ${NAMESPACES[KEYMGR]} -f $WORKDIR/utils/idle_timeout_envoyfilter.yaml
     
     echo "Installing Admin-Proxy into Masterdata and Keymanager."
-    kubectl -n ${NAMESPACES[ADMIN]} apply -f ../utils/admin-proxy.yaml
+    kubectl -n ${NAMESPACES[ADMIN]} apply -f $WORKDIR/utils/admin-proxy.yaml
     
     echo "Installing prereg rate-control Envoyfilter"
-    kubectl apply -n ${NAMESPACES[PREREG]} -f ../utils/rate-control-envoyfilter.yaml
+    kubectl apply -n ${NAMESPACES[PREREG]} -f $WORKDIR/utils/rate-control-envoyfilter.yaml
     
     # Commented lines from original script (kept for reference)
     #kubectl -n ${NAMESPACES[MFS]} --ignore-not-found=true delete configmap mosip-file-server
