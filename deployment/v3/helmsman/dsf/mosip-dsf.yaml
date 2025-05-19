@@ -966,6 +966,4 @@ apps:
       regclient.hostName: "api-internal.soil.mosip.net"
       istio.host: "regclient.soil.mosip.net"
     priority: -1
-    hooks:
-      preInstall: "$WORKDIR/hooks/regclient-setup.sh"
 
