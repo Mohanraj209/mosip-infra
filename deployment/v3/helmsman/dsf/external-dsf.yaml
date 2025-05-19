@@ -11,6 +11,8 @@ helmRepos:
 
 # Note: Based on your requirement disable the namespaces which you want to use, by default all the namespaces are protected.
 namespaces:
+  postgres:
+    protected: true
   keycloak:
     protected: true
   softhsm:
