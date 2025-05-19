@@ -183,8 +183,8 @@ apps:
       # resources.limits.memory: "1Gi"
       resources.requests.cpu: "100m"
       resources.requests.memory: "20Mi"
-      wait: true
-      priority: -12
+    wait: true
+    priority: -12
 
   softhsm-ida:
     namespace: softhsm
@@ -196,8 +196,8 @@ apps:
       # resources.limits.memory: "1Gi"
       resources.requests.cpu: "100m"
       resources.requests.memory: "20Mi"
-      wait: true
-      priority: -11
+    wait: true
+    priority: -11
 
   minio:
     namespace: minio
@@ -248,7 +248,7 @@ apps:
     chart: mosip/activemq-artemis
     set: 
       istio.enabled: "true"
-      istio.hosts[0]: "activema.soil.mosip.net"
+      istio.hosts[0]: "activemq.soil.mosip.net"
       istio.ingressController.name: "ingressgateway-internal"
       istio.prefix: ""
     wait: true
