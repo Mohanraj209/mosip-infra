@@ -133,7 +133,8 @@ apps:
       proxyAddressForwarding: "true"
       replicaCount: "1"
       serviceDiscovery.enabled: "true"
-      resources.limits: "{}"
+      # resources.limits.cpu: "250m"
+      # resources.limits.memory: "1Gi"
       resources.requests.cpu: "200m"
       resources.requests.memory: "1000Mi"
       rbac.create: "true"
@@ -178,7 +179,6 @@ apps:
     version: 12.0.1
     chart: mosip/softhsm
     set:
-    resources.limits: "{}"
     # resources.limits.cpu: "250m"
     # resources.limits.memory: "1Gi"
     resources.requests.cpu: "100m"
@@ -192,7 +192,6 @@ apps:
     version: 12.0.1
     chart: mosip/softhsm
     set:
-    resources.limits: "{}"
     # resources.limits.cpu: "250m"
     # resources.limits.memory: "1Gi"
     resources.requests.cpu: "100m"
@@ -273,7 +272,7 @@ apps:
       transactionStateLogReplicationFactor: "3"
       numPartitions: "20"
       replicaCount: "5"
-      sidecars: "{}"
+      sidecars: {}
       autoCreateTopicsEnable: "true"
       deleteTopicEnable: "true"
       persistence.enabled: "true"
@@ -283,7 +282,8 @@ apps:
       zookeeper.replicaCount: "5"
       zookeeper.persistence.enabled: "true"
       zookeeper.persistence.size: "2Gi"
-      resources.limits: "{}"
+      # resources.limits.cpu: "250m"
+      # resources.limits.memory: "1Gi"
       resources.requests.cpu: "200m"
       resources.requests.memory: "2000Mi"
       startupProbe.enabled: "true"
