@@ -12,27 +12,27 @@ helmRepos:
 # Note: Based on your requirement disable the namespaces which you want to use, by default all the namespaces are protected.
 namespaces:
   postgres:
-    protected: true
+    protected: false
   keycloak:
-    protected: true
+    protected: false
   softhsm:
-    protected: true
+    protected: false
   minio:
-    protected: true
+    protected: false
   clamav:
-    protected: true
+    protected: false
   activemq:
-    protected: true
+    protected: false
   kafka:
-    protected: true
+    protected: false
   s3:
-    protected: true
+    protected: false
   msg-gateways:
-    protected: true
+    protected: false
   captcha:
-    protected: true
+    protected: false
   landing-page:
-    protected: true
+    protected: false
 
 apps:
   postgres:
@@ -66,10 +66,17 @@ apps:
   istio-addons-psql:
     namespace: postgres
     enabled: true
-    version: 0.1.0
-    chart: $WORKDIR/utils/istio-addons/postgres-istio-addons-0.1.0.tgz
+    version: 0.0.1-develop
+    chart: mosip/istio-addons
     set:
-      postgresHost: "postgres.soil.mosip.net"
+      istio.name: "postgres"
+      istio.host: "postgres.soil.mosip.net"
+      istio.ingressController: "ingressgateway-internal"
+      istio.port.name: "postgres"
+      istio.port.number: 5432
+      istio.port.protocol: "TCP"
+      istio.serviceHost: "postgres-postgresql"
+      istio.servicePort: 5432
     wait: true
     priority: -4
 
@@ -147,12 +154,17 @@ apps:
   istio-addons-iam:
     namespace: keycloak
     enabled: true
-    version: 0.1.0
-    chart: $WORKDIR/utils/istio-addons/iam-istio-addons-0.1.0.tgz
+    version: 0.0.1-develop
+    chart: mosip/istio-addons
     set:
-      keycloakExternalHost: "iam.soil.mosip.net"
-      keycloakInternalHost: "keycloak.keycloak"
-      service: "keycloak"
+      istio.name: "keycloak"
+      istio.host: "iam.soil.mosip.net"
+      istio.ingressController: "ingressgateway-internal"
+      istio.port.name: "http"
+      istio.port.number: 80
+      istio.port.protocol: "HTTP"
+      istio.serviceHost: "keycloak"
+      istio.servicePort: 80
     wait: true
     priority: -3
 
@@ -182,7 +194,7 @@ apps:
       # resources.limits.cpu: "250m"
       # resources.limits.memory: "1Gi"
       resources.requests.cpu: "100m"
-      resources.requests.memory: "20Mi"
+      resources.requests.memory: "100Mi"
     wait: true
     priority: -12
 
@@ -195,7 +207,7 @@ apps:
       # resources.limits.cpu: "250m"
       # resources.limits.memory: "1Gi"
       resources.requests.cpu: "100m"
-      resources.requests.memory: "20Mi"
+      resources.requests.memory: "200Mi"
     wait: true
     priority: -11
 
@@ -217,10 +229,29 @@ apps:
   istio-addons-minio:
     namespace: minio
     enabled: true
-    version: 1.2.0
-    chart: $WORKDIR/utils/istio-addons/minio-istio-addons-1.2.0.tgz
+    version: 0.0.1-develop
+    chart: mosip/istio-addons
     set:
-      externalHost: "minio.soil.mosip.net"
+      istio.name: "minio"
+      istio.host: "minio.sandbox.xyz.net"
+      istio.ingressController: "ingressgateway-internal"
+      istio.port.protocol: "HTTP"
+      istio.servers[0].port.name: "http"
+      istio.servers[0].port.number: "80"
+      istio.servers[0].port.protocol: "HTTP"
+      istio.servers[0].hosts[0]: "minio.soil.mosip.net"
+      istio.servers[1].port.name: "minio"
+      istio.servers[1].port.number: "9000"
+      istio.servers[1].port.protocol: "HTTP"
+      istio.servers[1].hosts[0]: "minio.soil.mosip.net"
+      istio.httpRoutes[0].name: "minio"
+      istio.httpRoutes[0].match.port: 9000
+      istio.httpRoutes[0].destination.host: "minio"
+      istio.httpRoutes[0].destination.port: 9000
+      istio.httpRoutes[1].name: "http"
+      istio.httpRoutes[1].match.uriPrefix: "/"
+      istio.httpRoutes[1].destination.host: "minio"
+      istio.httpRoutes[1].destination.port: 9001
     wait: true
     hooks:
       postInstall: "$WORKDIR/hooks/s3-setup.sh <pretext-value>"
@@ -246,7 +277,7 @@ apps:
     enabled: true
     version: 0.0.2
     chart: mosip/activemq-artemis
-    set: 
+    set:
       istio.enabled: "true"
       istio.hosts[0]: "activemq.soil.mosip.net"
       istio.ingressController.name: "ingressgateway-internal"
@@ -259,7 +290,7 @@ apps:
   # Pass the captcha site and secret key in the above post install script as an argument.To create site and secret key below is the link:
   # https://cloud.google.com/security/products/recaptcha
 
-  kafka: 
+  kafka:
     namespace: kafka
     enabled: true
     version: 26.11.4
@@ -282,7 +313,7 @@ apps:
       zookeeper.persistence.enabled: "true"
       zookeeper.persistence.size: "2Gi"
       # resources.limits.cpu: "250m"
-      # resources.limits.memory: "1Gi"
+      # resources.limits.memory: "2Gi"
       resources.requests.cpu: "200m"
       resources.requests.memory: "2000Mi"
       startupProbe.enabled: "true"
@@ -321,11 +352,17 @@ apps:
   istio-addons-kafka:
     namespace: kafka
     enabled: true
-    version: 1.2.0
-    chart: $WORKDIR/utils/istio-addons/kafka-istio-addons-1.2.0.tgz
+    version: 0.0.1-develop
+    chart: mosip/istio-addons
     set:
-      kafkaUiHost: "kafka.soil.mosip.net"
-      installName: "kafka-ui"
+      istio.name: "kafka-ui"
+      istio.host: "kafka.soil.mosip.net"
+      istio.ingressController: "ingressgateway-internal"
+      istio.port.name: "kafka-ui"
+      istio.port.number: 80
+      istio.port.protocol: "HTTP"
+      istio.serviceHost: "kafka-ui"
+      istio.servicePort: 80
     wait: true
     hooks:
       postInstall: "$WORKDIR/hooks/msg-gateways-setup.sh"
