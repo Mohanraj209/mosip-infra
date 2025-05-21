@@ -32,7 +32,7 @@ apps:
     wait: true
     priority: -6
     hooks:
-      postInstall: "$WORKDIR/hooks/install-istio-and-httpbin.sh <env-name> <version>"
+      postInstall: "$WORKDIR/hooks/install-istio-and-httpbin.sh soil helmsman"
 
   rancher-monitoring:
     namespace: cattle-monitoring-system
@@ -40,10 +40,10 @@ apps:
     version: 103.1.0+up45.31.1
     chart: mosip/rancher-monitoring
     set:
-      grafana.global.cattle.clusterId: "<cluster-id>"
-      global.cattle.clusterId: "<cluster-id>"
+      grafana.global.cattle.clusterId: "c-m-ghlmj5dq"
+      global.cattle.clusterId: "c-m-ghlmj5dq"
     wait: true
-    valuesFile: "$WORKDIR/utils/monitoring_values.yaml"
+    valuesFile: "$WORKDIR/utils/monitoring_values.yaml"  
     priority: -5
     timeout: 600
     hooks:
@@ -54,8 +54,6 @@ apps:
     enabled: true
     version: 17.9.25
     chart: mosip/elasticsearch
-    wait: true
-    priority: -4
     set:
       global.kibanaEnabled: "true"
       data.heapSize: "728m"
@@ -67,21 +65,17 @@ apps:
       master.persistence.size: "4Gi"
       master.resources.requests.memory: "728Mi"
       kibana.persistence.enabled: "false"
+    wait: true
+    priority: -4
 
   istio-addons-logging:
-    namespace: cattle-logging-system
+    namespace: cattle-logging-system 
     enabled: true
-    version: 0.0.1-develop
-    chart: mosip/istio-addons
+    version: 0.1.0
+    chart: $WORKDIR/utils/istio-addons/logging-istio-addons-0.1.0.tgz
     set:
-      istio.name: "kibana"
-      istio.host: "kibana.sandbox.xyz.net"
-      istio.ingressController: "ingressgateway-internal"
-      istio.port.name: "kibana"
-      istio.port.number: 80
-      istio.port.protocol: "HTTP"
-      istio.serviceHost: "kibana"
-      istio.servicePort: 5601
+      KIBANA_HOST: "kibana.soil.mosip.net"
+      KIBANA_NAME: "elasticsearch-kibana"
     wait: true
     priority: -3
 
@@ -103,4 +97,3 @@ apps:
     timeout: 600
     hooks:
       postInstall: "$WORKDIR/hooks/post_logging-setup.sh"
-
