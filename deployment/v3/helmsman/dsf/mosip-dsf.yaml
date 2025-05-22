@@ -62,56 +62,14 @@ apps:
   conf-secrets:
     namespace: conf-secrets 
     enabled: true
-    version: 0.0.1-develop
+    version: 12.0.1
     chart: mosip/conf-secrets
     priority: -15
   config-server:
     namespace: config-server
     enabled: true
-    version: 0.0.2-develop
+    version: 12.0.1
     chart: mosip/config-server
-    set:
-      image.repository: "mosipqa/kernel-config-server"
-      image.tag: "develop"
-      gitRepo.uri: "https://github.com/mosip/mosip-config" 
-      gitRepo.version: "soil-helmsman"
-      gitRepo.searchFolders: ""
-      gitRepo.private: "false"
-      gitRepo.username: ""
-      gitRepo.token: ""
-      resources.limits.cpu: "500m"
-      resources.limits.memory: "2000Mi"
-      resources.requests.cpu: "200m"
-      resources.requests.memory: "1000Mi"
-      spring_profiles.enabled: true
-      spring_profiles.spring_profiles_active: "composite"
-      spring_profiles.spring_compositeRepos[0].type: "git"
-      spring_profiles.spring_compositeRepos[0].uri: "https://github.com/mosip/inji-config"
-      spring_profiles.spring_compositeRepos[0].version: "develop"
-      spring_profiles.spring_compositeRepos[0].spring_cloud_config_server_git_cloneOnStart: true
-      spring_profiles.spring_compositeRepos[0].spring_cloud_config_server_git_force_pull: true
-      spring_profiles.spring_compositeRepos[0].spring_cloud_config_server_git_refreshRate: 5
-      spring_profiles.spring_compositeRepos[1].type: "git"
-      spring_profiles.spring_compositeRepos[1].uri: "https://github.com/mosip/mosip-config"
-      spring_profiles.spring_compositeRepos[1].version: "soil-helmsman"
-      spring_profiles.spring_compositeRepos[1].spring_cloud_config_server_git_cloneOnStart: true
-      spring_profiles.spring_compositeRepos[1].spring_cloud_config_server_git_force_pull: true
-      spring_profiles.spring_compositeRepos[1].spring_cloud_config_server_git_refreshRate: 5
-      spring_profiles.spring_fail_on_composite_error: false
-      localRepo.enabled: false
-      localRepo.spring_profiles_active: "native"
-      localRepo.spring_cloud_config_server_native_search_locations: "file:///var/lib/config_repo"
-      localRepo.spring_cloud_config_server_accept_empty: true
-      localRepo.spring_cloud_config_server_git_force_pull: false
-      localRepo.spring_cloud_config_server_git_refreshRate: 0
-      localRepo.spring_cloud_config_server_git_cloneOnStart: false
-      volume.name: "config-server"
-      volume.storageClass: "nfs-client"
-      volume.accessModes[0]: "ReadWriteMany"
-      volume.size: "10Mi"
-      volume.mountDir: "/var/lib/config_repo"
-      volume.nfs.path: ""
-      volume.nfs.server: ""
     wait: true
     timeout: 600
     priority: -14
@@ -121,35 +79,31 @@ apps:
   artifactory:
     namespace: artifactory
     enabled: true
-    version: 1.3.0-beta.1
+    version: 12.0.2
     chart: mosip/artifactory
-    set:
-      image.repository: "mosipdev/artifactory-server"
-      image.tag: "release-1.3.x"
-      artifacts.kernelRefIdObjectValidator: /artifactory/libs-release-local/io/mosip/kernel/kernel-ref-idobjectvalidator/kernel-ref-idobjectvalidator.jar
     wait: true
     priority: -13
     hooks:
       preInstall: "kubectl label ns artifactory istio-injection=enabled --overwrite"
       postInstall: "$WORKDIR/hooks/common-labeling-istio-and-sharing-cm-secrets-among-ns.sh"
 
-  captcha:
-    namespace: captcha
-    enabled: true
-    version: 0.1.0-develop
-    chart: mosip/captcha
-    set:
-      image.repository: "mosipdev/captcha-validation-service"
-      image.tag: "develop"
-    priority: -13
-    hooks:
-      preInstall: "kubectl label ns captcha istio-injection=enabled --overwrite"
+  # captcha:
+  #   namespace: captcha
+  #   enabled: true
+  #   version: 0.1.0-develop
+  #   chart: mosip/captcha
+  #   set:
+  #     image.repository: "mosipdev/captcha-validation-service"
+  #     image.tag: "develop"
+  #   priority: -13
+  #   hooks:
+  #     preInstall: "kubectl label ns captcha istio-injection=enabled --overwrite"
 
 
   mock-abis:
     namespace: abis
     enabled: true
-    version: 1.3.0-beta.1
+    version: 12.0.2
     chart: mosip/mock-abis
     set:
       startupProbe.failureThreshold: 60
@@ -173,34 +127,19 @@ apps:
   kernel-keygen:
     namespace: keymanager
     enabled: true
-    version: 1.3.0-beta.2
+    version: 12.0.1
     chart: mosip/keygen
     set:
-      image.repository: "mosipid/keys-generator"
-      image.tag: "1.3.0-beta.2"
       springConfigNameEnv: "kernel" 
       softHsmCM: "softhsm-kernel-share"
-      persistence.enabled: "false"
-      volumePermissions.enabled: "false"
-      persistence.size: "<volume_size>"
-      persistence.mountDir: "<volume_mount_path>"
-      persistence.pvc_claim_name: "<PVC_CLAIM_NAME>"
     wait: true
     priority: -12
 
   keymanager:
     namespace: keymanager
     enabled: true
-    version: 1.3.0-beta.2
+    version: 12.0.1
     chart: mosip/keymanager
-    set:
-      image.repository: "mosipdev/kernel-keymanager-service"
-      image.tag: "release-1.3.x"
-      persistence.enabled: "false"
-      volumePermissions.enabled: "false"
-      persistence.size: "<volume_size>"
-      persistence.mountDir: "<volume_mount_path>"
-      persistence.pvc_claim_name: "<PVC_CLAIM_NAME>"
     wait: true
     priority: -11
     hooks:
@@ -209,7 +148,7 @@ apps:
   websub-consolidator:
     namespace: websub
     enabled: true
-    version: 1.3.0-beta.1
+    version: 12.0.1
     chart: mosip/websub-consolidator
     # set:
     #   image.repository: "mosipdev/consolidator-websub-service"
@@ -221,7 +160,7 @@ apps:
   websub:
     namespace: websub
     enabled: true
-    version: 1.3.0-beta.1
+    version: 12.0.1
     chart: mosip/websub
     # set:
     #   image.repository: "mosipdev/websub-service"
@@ -243,12 +182,10 @@ apps:
   masterdata-loader:
     namespace: masterdata-loader
     enabled: true
-    version: 1.3.0-beta.1-develop
+    version: 12.0.1
     chart: mosip/masterdata-loader
     set:
-      image.repository: "mosipqa/masterdata-loader"
-      image.tag: "1.3.x"
-      mosipDataGithubBranch: "release-1.3.x"
+      mosipDataGithubBranch: "v1.2.0.1"
       mosipDataGithubRepo: "https://github.com/mosip/mosip-data"
       mosipDataXlsfolderPath: "/home/mosip/mosip-data/mosip_master/xlsx"
     wait: true
@@ -258,7 +195,7 @@ apps:
   authmanager:
     namespace: kernel
     enabled: true
-    version: 1.3.0-beta.1
+    version: 12.0.1
     chart: mosip/authmanager
     set:
       image.repository: "mosipdev/kernel-auth-service"
@@ -269,7 +206,7 @@ apps:
   auditmanager:
     namespace: kernel
     enabled: true
-    version: 1.3.0-beta.1-develop
+    version: 12.0.1
     chart: mosip/auditmanager
     set:
       image.repository: "mosipdev/kernel-auditmanager-service"
@@ -280,7 +217,7 @@ apps:
   idgenerator:
     namespace: kernel
     enabled: true
-    version: 1.3.0-beta.1
+    version: 12.0.1
     chart: mosip/idgenerator
     set:
       # image.repository: ""
@@ -297,11 +234,9 @@ apps:
   masterdata:
     namespace: kernel
     enabled: true
-    version: 1.3.0-beta.1
+    version: 12.0.1
     chart: mosip/masterdata
     set:
-      image.repository: "mosipdev/kernel-masterdata-service"
-      image.tag: "develop"
       istio.corsPolicy.allowOrigins[0].exact: "https://admin.soil.mosip.net"
     priority: -9
 
@@ -309,7 +244,7 @@ apps:
   otpmanager:
     namespace: kernel
     enabled: true
-    version: 1.3.0-beta.1
+    version: 12.0.1
     chart: mosip/otpmanager
     # set:
     #   image.repository: ""
@@ -320,7 +255,7 @@ apps:
   pridgenerator:
     namespace: kernel
     enabled: true
-    version: 1.3.0-beta.1
+    version: 12.0.1
     chart: mosip/pridgenerator
     # set:
     #   image.repository: ""
@@ -331,7 +266,7 @@ apps:
   ridgenerator:
     namespace: kernel
     enabled: true
-    version: 1.3.0-beta.1
+    version: 12.0.1
     chart: mosip/ridgenerator
     # set:
     #   image.repository: ""
@@ -342,7 +277,7 @@ apps:
   syncdata:
     namespace: kernel
     enabled: true
-    version: 1.3.0-beta.1
+    version: 12.0.1
     chart: mosip/syncdata
     # set:
     #   image.repository: "mosipdev/kernel-syncdata-service"
@@ -353,7 +288,7 @@ apps:
   notifier:
     namespace: kernel
     enabled: true
-    version: 1.3.0-beta.1
+    version: 12.0.1
     chart: mosip/notifier
     # set:
     #   image.repository: ""
@@ -364,11 +299,9 @@ apps:
   biosdk-service:
     namespace: biosdk
     enabled: true
-    version: 1.3.0-beta.1
+    version: 12.0.1
     chart: mosip/biosdk-service
     set:
-      image.repository: "mosipid/biosdk-server"
-      image.tag: "1.3.0-beta.1"
       biosdk.zippedLibUrl: "http://artifactory.artifactory/artifactory/libs-release-local/biosdk/biosdk-lib.zip"
       biosdk.bioapiImpl: "io.mosip.mock.sdk.impl.SampleSDKV2"
     priority: -8
@@ -377,28 +310,21 @@ apps:
   packetmanager:
     namespace: packetmanager
     enabled: true
-    version: 1.3.0-beta.1
+    version: 12.0.1
     chart: mosip/packetmanager
-    set:
-      image.repository: "mosipdev/commons-packet-service"
-      image.tag: "develop"
     priority: -8
 
 
   datashare:
     namespace: datashare
     enabled: true
-    version: 1.3.0-beta.1
-    chart: mosip/datashare
-    set:
-      image.repository: "mosipid/data-share-service"
-      image.tag: "1.3.0-beta.1"
+    version: 12.0.1
     priority: -8
 
   prereg-gateway:
     namespace: prereg
     enabled: true
-    version: 1.3.0-beta.1
+    version: 12.0.1
     chart: mosip/prereg-gateway
     set:
       istio.hosts[0]: "prereg.soil.mosip.net"
@@ -407,50 +333,38 @@ apps:
   prereg-application:
     namespace: prereg
     enabled: true
-    version: 1.3.0-beta.1
+    version: 12.0.1
     chart: mosip/prereg-application
-    set:
-      image.repository: "mosipdev2/pre-registration-application-service"
-      image.tag: "release-1.3.x"
     priority: -8
 
 
   prereg-booking:
     namespace: prereg
     enabled: true
-    version: 1.3.0-beta.1
+    version: 12.0.1
     chart: mosip/prereg-booking
-    set:
-      image.repository: "mosipdev2/pre-registration-booking-service"
-      image.tag: "release-1.3.x"
     priority: -8
 
   prereg-datasync:
     namespace: prereg
     enabled: true
-    version: 1.3.0-beta.1
+    version: 12.0.1
     chart: mosip/prereg-datasync
-    set:
-      image.repository: "mosipdev2/pre-registration-datasync-service"
-      image.tag: "release-1.3.x"
     priority: -8
 
 
   prereg-batchjob:
     namespace: prereg
     enabled: true
-    version: 1.3.0-beta.1
+    version: 12.0.1
     chart: mosip/prereg-batchjob
-    set:
-      image.repository: "mosipdev2/pre-registration-batchjob"
-      image.tag: "release-1.3.x"
     priority: -8
 
 
   prereg-ui:
     namespace: prereg
     enabled: true
-    version: 1.3.0-beta.1
+    version: 12.0.1
     chart: mosip/prereg-ui
     set:
       # image.repository: ""
@@ -462,7 +376,7 @@ apps:
   idrepo-saltgen:
     namespace: idrepo
     enabled: true
-    version: 0.0.1-develop
+    version: 12.0.1
     chart: mosip/idrepo-saltgen
     # set:
     #   image.repository: ""
@@ -474,53 +388,39 @@ apps:
   credential:
     namespace: idrepo
     enabled: true
-    version: 0.0.1-develop
+    version: 12.0.1
     chart: mosip/credential
-    set:
-      image.repository: "mosipdev/credential-service"
-      image.tag: "release-1.3.x"
     priority: -7
 
   credentialrequest:
     namespace: idrepo
     enabled: true
-    version: 0.0.1-develop
+    version: 12.0.1
     chart: mosip/credentialrequest
-    set:
-      image.repository: "mosipdev/credential-request-generator"
-      image.tag: "release-1.3.x"
     priority: -6
   
 
   identity:
     namespace: idrepo
     enabled: true
-    version: 0.0.1-develop
+    version: 12.0.1
     chart: mosip/identity
-    set:
-      image.repository: "mosipdev/id-repository-identity-service"
-      image.tag: "release-1.3.x"
     priority: -6
 
   vid:
     namespace: idrepo
     enabled: true
-    version: 0.0.1-develop
+    version: 12.0.1
     chart: mosip/vid
-    set:
-      image.repository: "mosipdev/id-repository-vid-service"
-      image.tag: "release-1.3.x"
     priority: -6
 
 
   pms-partner:
     namespace: pms
     enabled: true
-    version: 0.0.1-develop
+    version: 12.0.1
     chart: mosip/pms-partner
     set:
-      image.repository: "mosipdev/partner-management-service"
-      image.tag: "develop"
       istio.corsPolicy.allowOrigins[0].prefix: "https://pmp.soil.mosip.net"
       istio.corsPolicy.allowOrigins[1].prefix: "https://pmp-revamp.soil.mosip.net"
     priority: -8
@@ -529,11 +429,9 @@ apps:
   pms-policy:
     namespace: pms
     enabled: true
-    version: 0.0.1-develop
+    version: 12.0.1
     chart: mosip/pms-policy
     set:
-      image.repository: "mosipdev/policy-management-service"
-      image.tag: "develop"
       istio.corsPolicy.allowOrigins[0].prefix: "https://pmp.soil.mosip.net"
       istio.corsPolicy.allowOrigins[1].prefix: "https://pmp-revamp.soil.mosip.net"
     priority: -8
@@ -545,33 +443,31 @@ apps:
     version: 12.0.2
     chart: mosip/pmp-ui
     set:
-      image.repository: "mosipdev/pmp-ui"
-      image.tag: "develop"
       pmp.apiUrl: "https://api-internal.soil.mosip.net/"
       istio.hosts[0]: "pmp.soil.mosip.net"
     priority: -8
 
 
-  pmp-revamp-ui:
-    namespace: pms
-    enabled: true
-    version: 0.0.1-develop
-    chart: mosip/pmp-revamp-ui
-    set:
-      image.repository: "mosipdev/pmp-revamp-ui"
-      image.tag: "develop"
-      pmp_revamp.react_app_partner_manager_api_base_url: "https://api-internal.soil.mosip.net/v1/partnermanager"
-      pmp_revamp.react_app_policy_manager_api_base_url: "https://api-internal.soil.mosip.net/v1/policymanager"
-      pmp_revamp.pms_partner_manager_internal_service_url: "http://pms-partner.pms/v1/partnermanager"
-      pmp_revamp.pms_policy_manager_internal_service_url: "http://pms-policy.pms/v1/policymanager"
-      istio.hosts[0]: "pmp-revamp.soil.mosip.net"
-    priority: -8
+  # pmp-revamp-ui:
+  #   namespace: pms
+  #   enabled: true
+  #   version: 0.0.1-develop
+  #   chart: mosip/pmp-revamp-ui
+  #   set:
+  #     image.repository: "mosipdev/pmp-revamp-ui"
+  #     image.tag: "develop"
+  #     pmp_revamp.react_app_partner_manager_api_base_url: "https://api-internal.soil.mosip.net/v1/partnermanager"
+  #     pmp_revamp.react_app_policy_manager_api_base_url: "https://api-internal.soil.mosip.net/v1/policymanager"
+  #     pmp_revamp.pms_partner_manager_internal_service_url: "http://pms-partner.pms/v1/partnermanager"
+  #     pmp_revamp.pms_policy_manager_internal_service_url: "http://pms-policy.pms/v1/policymanager"
+  #     istio.hosts[0]: "pmp-revamp.soil.mosip.net"
+  #   priority: -8
 
 
   regproc-salt:
     namespace: regproc
     enabled: true
-    version: 1.3.0-beta.1
+    version: 12.0.1
     chart: mosip/regproc-salt
     # set:
     #   image.repository: ""
@@ -582,7 +478,7 @@ apps:
   regproc-workflow:
     namespace: regproc
     enabled: true
-    version: 1.3.0-beta.1
+    version: 12.0.1
     chart: mosip/regproc-workflow
     # set:
     #   image.repository: ""
@@ -594,7 +490,7 @@ apps:
   regproc-status:
     namespace: regproc
     enabled: true
-    version: 1.3.0-beta.1
+    version: 12.0.1
     chart: mosip/regproc-status
     # set:
     #   image.repository: ""
@@ -604,7 +500,7 @@ apps:
   regproc-camel:
     namespace: regproc
     enabled: true
-    version: 1.3.0-beta.1
+    version: 12.0.1
     chart: mosip/regproc-camel
     # set:
     #   image.repository: ""
@@ -614,7 +510,7 @@ apps:
   regproc-pktserver:
     namespace: regproc
     enabled: true
-    version: 1.3.0-beta.1
+    version: 12.0.1
     chart: mosip/regproc-pktserver
     # set:
     #   image.repository: ""
@@ -624,7 +520,7 @@ apps:
   regproc-group1:
     namespace: regproc
     enabled: true
-    version: 1.3.0-beta.1
+    version: 12.0.1
     chart: mosip/regproc-group1
     set:
       persistence.storageClass: nfs-csi
@@ -636,7 +532,7 @@ apps:
   regproc-group2:
     namespace: regproc
     enabled: true
-    version: 1.3.0-beta.1
+    version: 12.0.1
     chart: mosip/regproc-group2
     # set:
     #   image.repository: ""
@@ -646,7 +542,7 @@ apps:
   regproc-group3:
     namespace: regproc
     enabled: true
-    version: 1.3.0-beta.1
+    version: 12.0.1
     chart: mosip/regproc-group3
     # set:
     #   image.repository: ""
@@ -656,7 +552,7 @@ apps:
   regproc-group4:
     namespace: regproc
     enabled: true
-    version: 1.3.0-beta.1
+    version: 12.0.1
     chart: mosip/regproc-group4
     # set:
     #   image.repository: ""
@@ -666,7 +562,7 @@ apps:
   regproc-group5:
     namespace: regproc
     enabled: true
-    version: 1.3.0-beta.1
+    version: 12.0.1
     chart: mosip/regproc-group5
     # set:
     #   image.repository: ""
@@ -676,7 +572,7 @@ apps:
   regproc-group6:
     namespace: regproc
     enabled: true
-    version: 1.3.0-beta.1
+    version: 12.0.1
     chart: mosip/regproc-group6
     # set:
     #   image.repository: ""
@@ -686,17 +582,14 @@ apps:
   regproc-group7:
     namespace: regproc
     enabled: true
-    version: 1.3.0-beta.1
+    version: 12.0.1
     chart: mosip/regproc-group7
-    set:
-      image.repository: "mosipdev/registration-processor-stage-group-7"
-      image.tag: "develop"
     priority: -5
 
   regproc-trans:
     namespace: regproc
     enabled: true
-    version: 1.3.0-beta.1
+    version: 12.0.1
     chart: mosip/regproc-trans
     # set:
     #   image.repository: ""
@@ -706,7 +599,7 @@ apps:
   regproc-notifier:
     namespace: regproc
     enabled: true
-    version: 1.3.0-beta.1
+    version: 12.0.1
     chart: mosip/regproc-notifier
     set:
       resources.limits.cpu: "500m"
@@ -720,7 +613,7 @@ apps:
   regproc-reprocess:
     namespace: regproc
     enabled: true
-    version: 1.3.0-beta.1
+    version: 12.0.1
     chart: mosip/regproc-reprocess
     # set:
     #   image.repository: ""
@@ -730,21 +623,19 @@ apps:
   regproc-landingzone:
     namespace: regproc
     enabled: true
-    version: 1.3.0-beta.1
+    version: 12.0.1
     chart: mosip/regproc-landingzone
     # set:
-    #   image.repository: ""$COPY_UTIL "configmap" "global" "default" "SMTP"
+    #   image.repository: ""
     #   image.tag: ""
     priority: -5
 
   admin-hotlist:
     namespace: admin
     enabled: true
-    version: 1.3.0-beta.1
+    version: 12.0.1
     chart: mosip/admin-hotlist
     set:
-      image.repository: "mosipdev/hotlist-service"
-      image.tag: "develop"
       resources.limits.cpu: "300m"
       resources.limits.memory: "1500Mi"
       resources.requests.cpu: "300m"
@@ -756,11 +647,9 @@ apps:
   admin-service:
     namespace: admin
     enabled: true
-    version: 1.3.0-beta.1
+    version: 12.0.1
     chart: mosip/admin-service
     set:
-      image.repository: "mosipdev/admin-service"
-      image.tag: "develop"
       istio.corsPolicy.allowOrigins[0].prefix: "https://admin.soil.mosip.net"
     priority: -8
 
@@ -768,11 +657,9 @@ apps:
   admin-ui:
     namespace: admin
     enabled: true
-    version: 1.3.0-beta.1
+    version: 12.0.1
     chart: mosip/admin-ui
     set:
-      image.repository: "mosipdev/admin-ui"
-      image.tag: "release-1.3.x"
       admin.apiUrl: "https://api-internal.soil.mosip.net/v1"
       istio.hosts[0]: "admin.soil.mosip.net"
     priority: -8
@@ -781,32 +668,19 @@ apps:
   ida-keygen:
     namespace: ida
     enabled: true
-    version: 1.3.0-beta.2
+    version: 12.0.1
     chart: mosip/keygen
     set:
       springConfigNameEnv: "id-authentication" 
       softHsmCM: "softhsm-ida-share"
-      persistence.enabled: false
-      volumePermissions.enabled: false
-      persistence.size: <volume_size>
-      persistence.mountDir: "<volume_mount_path>"
-      persistence.pvc_claim_name: "<PVC_CLAIM_NAME>"
     priority: -8
 
 
   ida-auth:
     namespace: ida
     enabled: true
-    version: 1.3.0-beta.1-develop
+    version: 12.0.1
     chart: mosip/ida-auth
-    set:
-      image.repository: "mosipdev/authentication-service"
-      image.tag: "develop"
-      enable_insecure: "false"
-      persistence.enabled: "false"
-      volumePermissions.enabled: "false"
-      persistence.mountDir: "<volume_mount_path>"
-      persistence.existingClaim: "<PVC_CLAIM_NAME>"
     priority: -7
     hooks:
       preInstall: "$WORKDIR/hooks/wait-for-idajob.sh"
@@ -814,41 +688,22 @@ apps:
   ida-internal:
     namespace: ida
     enabled: true
-    version: 1.3.0-beta.1-develop
+    version: 12.0.1
     chart: mosip/ida-internal
-    set:
-      image.repository: "mosipdev/authentication-internal-service"
-      image.tag: "develop"
-      enable_insecure: "false"
-      persistence.enabled: "false"
-      volumePermissions.enabled: "false"
-      persistence.mountDir: "<volume_mount_path>"
-      persistence.existingClaim: "<PVC_CLAIM_NAME>"
     priority: -6
 
   ida-otp:
     namespace: ida
     enabled: true
-    version: 1.3.0-beta.1-develop
+    version: 12.0.1
     chart: mosip/ida-otp
-    set:
-      image.repository: "mosipdev/authentication-otp-service"
-      image.tag: "develop"
-      enable_insecure: false
-      persistence.enabled: false
-      volumePermissions.enabled: false
-      persistence.mountDir: "<volume_mount_path>"
-      persistence.existingClaim: "<PVC_CLAIM_NAME>"
     priority: -6
 
   print:
     namespace: print
     enabled: true
-    version: 1.3.0-beta.1
+    version: 12.0.1
     chart: mosip/print-service
-    set:
-      image.repository: "mosipdev/print"
-      image.tag: "release-1.3.x"
     priority: -8
 
 
@@ -863,11 +718,9 @@ apps:
   resident:
     namespace: resident
     enabled: true
-    version: 1.3.0-beta.1-develop
+    version: 12.0.1
     chart: mosip/resident
     set:
-      image.repository: "mosipdev/resident-service"
-      image.tag: "release-1.3.x"
       enable_insecure: false
       istio.corsPolicy.allowOrigins[0].prefix: "https://resident.soil.mosip.net"
     timeout: 600
@@ -879,11 +732,9 @@ apps:
   resident-ui:
     namespace: resident
     enabled: true
-    version: 0.9.0
+    version: 0.0.1
     chart: mosip/resident-ui
     set:
-      image.repository: "mosipdev/resident-ui"
-      image.tag: "develop"
       resident.apiHost: "api-internal.soil.mosip.net"
       istio.hosts[0]: "resident.soil.mosip.net"
       wait: true
@@ -892,7 +743,7 @@ apps:
   partner-onboarder:
     namespace: onboarder
     enabled: true
-    version: 0.0.1-develop
+    version: 12.0.1
     chart: mosip/partner-onboarder
     set:
       # onboarding.configmaps.onboarding.enable_insecure: "false"
@@ -901,7 +752,6 @@ apps:
       onboarding.configmaps.s3.s3-user-key: "admin" 
       onboarding.configmaps.s3.s3-region: ""
       onboarding.configmaps.s3.s3-bucket-name: "onboarder"
-      onboarding.secrets.s3.s3-user-secret: "password"
       # onboarding.volumes.reports.nfs.server: "<nfs_server>"
       # # provide NFS directory to store reports from NFS server (e.g. /srv/nfs/<sandbox>/onboarder/), make sure permission is 777 for the folder: " nfs_path
       # onboarding.volumes.reports.nfs.path: "<nfs_path>"
@@ -936,11 +786,9 @@ apps:
   mosip-file-server:
     namespace: mosip-file-server
     enabled: true
-    version: 1.3.0-beta.1-develop
+    version: 12.0.1
     chart: mosip/mosip-file-server
     set:
-      image.repository: "mosipdev/mosip-file-server"
-      image.tag: "release-1.3.x"
       mosipfileserver.host: "api.soil.mosip.net"
       # mosipfileserver.secrets.KEYCLOAK_CLIENT_SECRET: ""
       istio.corsPolicy.allowOrigins[0].prefix: "https://api.soil.mosip.net"
@@ -950,19 +798,3 @@ apps:
     hooks:
       preInstall: "$WORKDIR/hooks/mosip-file-server-setup.sh"
       postInstall: "$WORKDIR/hooks/post-install-mosip-file-server-setup.sh"
-  
-  regclient:
-    namespace: regclient
-    enabled: true
-    version: 1.3.0-beta.1-develop
-    chart: mosip/regclient
-    set:
-      startupProbe.failureThreshold: 60
-      image.repository: "mosipdev/registration-client"
-      image.tag: "develop"
-      regclient.version: "1.2.1-SNAPSHOT"
-      regclient.upgradeServerUrl: "https://regclient.soil.mosip.net"
-      regclient.healthCheckUrl: "https://api-internal.soil.mosip.net/v1/syncdata/actuator/health"
-      regclient.hostName: "api-internal.soil.mosip.net"
-      istio.host: "regclient.soil.mosip.net"
-    priority: -1

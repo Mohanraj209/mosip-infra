@@ -83,41 +83,41 @@ apps:
   postgres-init:
     namespace: postgres
     enabled: true
-    version: 0.0.1-develop
+    version: 12.0.1
     chart: mosip/postgres-init
     wait: true
     set:
       dbUserPasswords.dbuserPassword: ""
       databases.mosip_master.enabled: "true"
-      databases.mosip_master.branch: "develop"
+      databases.mosip_master.branch: "v1.2.0.1"
       databases.mosip_audit.enabled: "true"
-      databases.mosip_audit.branch: "develop"
+      databases.mosip_audit.branch: "v1.2.0.1"
       databases.mosip_keymgr.enabled: "true"
-      databases.mosip_keymgr.branch: "develop"
+      databases.mosip_keymgr.branch: "v1.2.0.1"
       databases.mosip_kernel.enabled: "true"
-      databases.mosip_kernel.branch: "develop"
+      databases.mosip_kernel.branch: "v1.2.0.1"
       databases.mosip_idmap.enabled: "true"
-      databases.mosip_idmap.branch: "develop"
+      databases.mosip_idmap.branch: "v1.2.0.1"
       databases.mosip_prereg.enabled: "true"
-      databases.mosip_prereg.branch: "develop"
+      databases.mosip_prereg.branch: "v1.2.0.1"
       databases.mosip_idrepo.enabled: "true"
-      databases.mosip_idrepo.branch: "develop"
+      databases.mosip_idrepo.branch: "v1.2.0.1"
       databases.mosip_ida.enabled: "true"
-      databases.mosip_ida.branch: "develop"
+      databases.mosip_ida.branch: "v1.2.0.1"
       databases.mosip_credential.enabled: "true"
-      databases.mosip_credential.branch: "develop"
+      databases.mosip_credential.branch: "v1.2.0.1"
       databases.mosip_regprc.enabled: "true"
-      databases.mosip_regprc.branch: "develop"
+      databases.mosip_regprc.branch: "v1.2.0.1"
       databases.mosip_pms.enabled: "true"
-      databases.mosip_pms.branch: "develop"
+      databases.mosip_pms.branch: "v1.2.0.1"
       databases.mosip_hotlist.enabled: "true"
-      databases.mosip_hotlist.branch: "develop"
+      databases.mosip_hotlist.branch: "v1.2.0.1"
       databases.mosip_resident.enabled: "true"
-      databases.mosip_resident.branch: "develop"
+      databases.mosip_resident.branch: "v1.2.0.1"
       databases.mosip_otp.enabled: "true"
-      databases.mosip_otp.branch: "develop"
+      databases.mosip_otp.branch: "v1.2.0.1"
       databases.mosip_digitalcard.enabled: "true"
-      databases.mosip_digitalcard.branch: "develop"
+      databases.mosip_digitalcard.branch: "v1.2.0.1"
     priority: -15
 
   keycloak:
@@ -175,7 +175,7 @@ apps:
     chart: mosip/keycloak-init
     wait: true
     set:
-      IAMHOST_URL: "iam.soil.mosip.net"
+      keycloakExternalHost: "iam.soil.mosip.net"
       keycloak.realms.mosip.realm_config.attributes.frontendUrl: "https://iam.soil.mosip.net/auth"
       keycloak.realms.mosip.realm_config.smtpServer.auth: "false"
       keycloak.realms.mosip.realm_config.smtpServer.host: "smtp.gmail.com"

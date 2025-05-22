@@ -4,7 +4,7 @@ NS=packetcreator
 
 function packetcreator() {
     echo Istio label
-    kubectl label ns $NS istio-injection=disabled --overwrite
+    kubectl label ns $NS istio-injection=enabled --overwrite
 
     api_internal_host=$( kubectl -n default get cm global -o json | jq -rc '.data."mosip-api-internal-host"' )
     kubectl -n $NS create cm global --from-literal="mosip-api-internal-host"="$api_internal_host"

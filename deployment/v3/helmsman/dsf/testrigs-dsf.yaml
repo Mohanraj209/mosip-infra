@@ -22,7 +22,7 @@ apps:
   packetcreator:
     namespace: packetcreator
     enabled: true
-    version: 0.0.1-develop
+    version: 12.0.1
     chart: mosip/packetcreator
     set:
       # image.repository: ""
@@ -32,6 +32,7 @@ apps:
       ## If ingress enabled, provide ingress host value i.e., PACKETCREATOR_HOST
       ingress.host: "<PACKETCREATOR_HOST>"
       istio.enabled: true
+      persistence.nfs.server: 172.31.17.143
     wait: true
     timeout: 300
     priority: -4
@@ -41,20 +42,20 @@ apps:
   apitestrig:
     namespace: apitestrig
     enabled: true
-    version: 0.0.1-develop
+    version: 12.0.1
     chart: mosip/apitestrig
     set:
       # image.repository: ""
       # image.tag: "develop"
       crontime: "0 2 * * *"
-      prereg.enabled: "true"
-      masterdata.enabled: "true"
-      idrepo.enabled: "true"
-      partner.enabled: "true"
-      resident.enabled: "true"
-      auth.enabled: "true"
-      esignet.enabled: "true"
-      mimoto.enabled: "true"
+      modules.prereg.enabled: "true"
+      modules.masterdata.enabled: "true"
+      modules.idrepo.enabled: "true"
+      modules.partner.enabled: "true"
+      modules.resident.enabled: "true"
+      modules.auth.enabled: "true"
+      modules.esignet.enabled: "true"
+      modules.mimoto.enabled: "true"
       apitestrig.configmaps.s3.s3-host: 'http://minio.minio:9000'
       apitestrig.configmaps.s3.s3-user-key: 'admin'
       apitestrig.configmaps.s3.s3-region: ''
@@ -63,7 +64,7 @@ apps:
       apitestrig.configmaps.db.db-port: "5432"
       apitestrig.configmaps.apitestrig.ENV_USER: "api-internal.soil.mosip.net"
       apitestrig.configmaps.apitestrig.ENV_ENDPOINT: "https://api-internal.soil.mosip.net"
-      apitestrig.configmaps.apitestrig.ENV_TESTLEVEL: "smokeAndRegression"
+      apitestrig.configmaps.apitestrig.ENV_TESTLEVEL: "smoke"
       apitestrig.configmaps.apitestrig.reportExpirationInDays: "3"
       apitestrig.configmaps.apitestrig.slack-webhook-url: "<slackWebhookUrl>"
       apitestrig.configmaps.apitestrig.eSignetDeployed: "<yes or no>"
@@ -75,7 +76,7 @@ apps:
   dslorchestrator:
     namespace: dslrig
     enabled: true
-    version: 0.0.1-develop
+    version: 12.0.1
     chart: mosip/dslorchestrator
     set:
       # image.repository: ""
@@ -91,6 +92,8 @@ apps:
       dslorchestrator.configmaps.dslorchestrator.ENDPOINT: "https://api-internal.soil.mosip.net"
       dslorchestrator.configmaps.dslorchestrator.packetUtilityBaseUrl: "http://packetcreator.packetcreator/v1/packetcreator"
       dslorchestrator.configmaps.dslorchestrator.reportExpirationInDays: "3"
+      persistence.nfs.server: "172.31.17.143"
+      persistence.nfs.path: "/srv/nfs/mosip/soil"
       dslorchestrator.configmaps.dslorchestrator.NS: "dslrig"
       enable_insecure: false
     priority: -2
@@ -100,11 +103,12 @@ apps:
   uitestrig:
     namespace: uitestrig
     enabled: true
-    version: 0.0.1-develop
+    version: 12.0.2
     chart: mosip/uitestrig
     set:
       # image.repository: ""
       # image.tag: "develop"
+      enable_insecure: false
       crontime: "0 3 * * *"
       uitestrig.configmaps.s3.s3-host: "http://minio.minio:9000"
       uitestrig.configmaps.s3.s3-user-key: "admin"
@@ -121,6 +125,7 @@ apps:
     priority: -1
     hooks:
       preInstall: "$WORKDIR/hooks/uitestrig-setup.sh"
+      postInstall: "$WORKDIR/hooks/trigger-test-jobs.sh"
 
 
 
