@@ -624,7 +624,7 @@ apps:
   regproc-landingzone:
     namespace: regproc
     enabled: true
-    version: 12.0.1
+    version: 12.0.2
     chart: mosip/regproc-landingzone
     # set:
     #   image.repository: ""
