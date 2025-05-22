@@ -59,7 +59,7 @@ trigger_all_cronjobs_in_namespace() {
 # Function to trigger a specific CronJob in the dslrig namespace
 trigger_specific_dsl_cronjob() {
     namespace="dslrig"
-    cronjob="cronjob-dslorchestrator-sanity"
+    cronjob="cronjob-dslorchestrator-smoke"
     
     echo "Triggering specific CronJob in namespace $namespace: $cronjob"
     

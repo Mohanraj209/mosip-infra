@@ -21,18 +21,17 @@ namespaces:
 apps:
   packetcreator:
     namespace: packetcreator
-    enabled: false
-    version: 12.0.1
+    enabled: true
+    version: 0.0.1-develop
     chart: mosip/packetcreator
     set:
-      # image.repository: ""
-      # image.tag: "develop"
+      image.repository: "mosipdev/dsl-packetcreator"
+      image.tag: "develop"
       enable_insecure: false
       ingress.enabled: false
       ## If ingress enabled, provide ingress host value i.e., PACKETCREATOR_HOST
       ingress.host: "<PACKETCREATOR_HOST>"
       istio.enabled: true
-      persistence.nfs.server: 172.31.17.143
     wait: true
     timeout: 300
     priority: -4
@@ -42,20 +41,10 @@ apps:
   apitestrig:
     namespace: apitestrig
     enabled: true
-    version: 12.0.1
+    version: 0.0.1-develop
     chart: mosip/apitestrig
     set:
-      # image.repository: ""
-      # image.tag: "develop"
       crontime: "0 2 * * *"
-      modules.prereg.enabled: "true"
-      modules.masterdata.enabled: "true"
-      modules.idrepo.enabled: "true"
-      modules.partner.enabled: "true"
-      modules.resident.enabled: "true"
-      modules.auth.enabled: "true"
-      modules.esignet.enabled: "true"
-      modules.mimoto.enabled: "true"
       apitestrig.configmaps.s3.s3-host: 'http://minio.minio:9000'
       apitestrig.configmaps.s3.s3-user-key: 'admin'
       apitestrig.configmaps.s3.s3-region: ''
@@ -69,6 +58,63 @@ apps:
       apitestrig.configmaps.apitestrig.slack-webhook-url: "<slackWebhookUrl>"
       apitestrig.configmaps.apitestrig.eSignetDeployed: "<yes or no>"
       apitestrig.configmaps.apitestrig.NS: apitestrig
+
+      modules.prereg.enabled: true
+      modules.prereg.image.repository: mosipdev/apitest-prereg
+      modules.prereg.image.tag: develop
+      modules.prereg.image.pullPolicy: Always
+
+      modules.masterdata.enabled: true
+      modules.masterdata.image.repository: mosipdev/apitest-masterdata
+      modules.masterdata.image.tag: develop
+      modules.masterdata.image.pullPolicy: Always
+
+      modules.idrepo.enabled: true
+      modules.idrepo.image.repository: mosipdev/apitest-idrepo
+      modules.idrepo.image.tag: develop
+      modules.idrepo.image.pullPolicy: Always
+
+      modules.partner.enabled: true
+      modules.partner.image.repository: mosipdev/apitest-pms
+      modules.partner.image.tag: develop
+      modules.partner.image.pullPolicy: Always
+
+      modules.pms.enabled: true
+      modules.pms.image.repository: mosipdev/apitest-pms
+      modules.pms.image.tag: develop
+      modules.pms.image.pullPolicy: Always
+
+      modules.resident.enabled: true
+      modules.resident.image.repository: mosipdev/apitest-resident
+      modules.resident.image.tag: develop
+      modules.resident.image.pullPolicy: Always
+
+      modules.auth.enabled: true
+      modules.auth.image.repository: mosipdev/apitest-auth
+      modules.auth.image.tag: develop
+      modules.auth.image.pullPolicy: Always
+
+      modules.esignet.enabled: false
+      modules.esignet.image.repository: mosipdev/apitest-esignet
+      modules.esignet.image.tag: develop
+      modules.esignet.image.pullPolicy: Always
+
+      modules.mimoto.enabled: false
+      modules.mimoto.image.repository: mosipdev/apitest-mimoto
+      modules.mimoto.image.tag: develop
+      modules.mimoto.image.pullPolicy: Always
+
+      modules.injicertify.enabled: false
+      modules.injicertify.image.repository: mosipdev/apitest-injicertify
+      modules.injicertify.image.tag: develop
+      modules.injicertify.image.pullPolicy: Always
+
+      modules.esignet-signup.enabled: false
+      modules.esignet-signup.image.repository: mosipdev/apitest-esignet-signup
+      modules.esignet-signup.image.tag: develop
+      modules.esignet-signup.image.pullPolicy: Always
+
+      modules.variables.push_reports_to_s3: "yes"
     priority: -3
     hooks:
       preInstall: "$WORKDIR/hooks/apitestrig-setup.sh"
@@ -76,11 +122,11 @@ apps:
   dslorchestrator:
     namespace: dslrig
     enabled: true
-    version: 12.0.1
+    version: 0.0.1-develop
     chart: mosip/dslorchestrator
     set:
-      # image.repository: ""
-      # image.tag: "develop"
+      image.repository: "mosipdev/dsl-orchestrator"
+      image.tag: "develop"
       crontime: "0 4 * * *"
       dslorchestrator.configmaps.s3.s3-host: 'http://minio.minio:9000'
       dslorchestrator.configmaps.s3.s3-user-key: 'admin'
@@ -92,8 +138,6 @@ apps:
       dslorchestrator.configmaps.dslorchestrator.ENDPOINT: "https://api-internal.soil.mosip.net"
       dslorchestrator.configmaps.dslorchestrator.packetUtilityBaseUrl: "http://packetcreator.packetcreator/v1/packetcreator"
       dslorchestrator.configmaps.dslorchestrator.reportExpirationInDays: "3"
-      persistence.nfs.server: "172.31.17.143"
-      persistence.nfs.path: "/srv/nfs/mosip/soil"
       dslorchestrator.configmaps.dslorchestrator.NS: "dslrig"
       enable_insecure: false
     priority: -2
@@ -103,7 +147,7 @@ apps:
   uitestrig:
     namespace: uitestrig
     enabled: true
-    version: 12.0.2
+    version: 0.0.1-develop
     chart: mosip/uitestrig
     set:
       # image.repository: ""
@@ -122,13 +166,29 @@ apps:
       uitestrig.configmaps.uitestrig.adminPortalPath: "https://admin.soil.mosip.net"
       uitestrig.configmaps.uitestrig.residentPortalPath: "https://resident.soil.mosip.net"
       uitestrig.configmaps.uitestrig.NS: "uitestrig"
+  
+      modules[0].name: admin-ui
+      modules[0].enabled: true
+      modules[0].image.registry: docker.io
+      modules[0].image.repository: mosipqa/uitest-admin
+      modules[0].image.tag: develop
+      modules[0].image.pullPolicy: Always
+
+      modules[1].name: pmp-ui
+      modules[1].enabled: true
+      modules[1].image.registry: docker.io
+      modules[1].image.repository: mosipqa/uitest-pmp
+      modules[1].image.tag: develop
+      modules[1].image.pullPolicy: Always
+
+      modules[2].name: resident-ui
+      modules[2].enabled: true
+      modules[2].image.registry: docker.io
+      modules[2].image.repository: mosipqa/uitest-resident
+      modules[2].image.tag: develop
+      modules[2].image.pullPolicy: Always
+
     priority: -1
     hooks:
       preInstall: "$WORKDIR/hooks/uitestrig-setup.sh"
       postInstall: "$WORKDIR/hooks/trigger-test-jobs.sh"
-
-
-
-      
-
-    
