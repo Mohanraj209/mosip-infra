@@ -209,9 +209,6 @@ apps:
     enabled: true
     version: 12.0.1
     chart: mosip/authmanager
-    set:
-      image.repository: "mosipdev/kernel-auth-service"
-      image.tag: "develop"
     priority: -9
 
   
@@ -220,9 +217,6 @@ apps:
     enabled: true
     version: 12.0.1
     chart: mosip/auditmanager
-    set:
-      image.repository: "mosipdev/kernel-auditmanager-service"
-      image.tag: "release-1.3.x"
     priority: -9
 
   

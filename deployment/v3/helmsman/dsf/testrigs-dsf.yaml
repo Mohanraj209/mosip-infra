@@ -21,7 +21,7 @@ namespaces:
 apps:
   packetcreator:
     namespace: packetcreator
-    enabled: true
+    enabled: false
     version: 12.0.1
     chart: mosip/packetcreator
     set:
