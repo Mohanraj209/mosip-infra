@@ -319,6 +319,7 @@ apps:
     namespace: datashare
     enabled: true
     version: 12.0.1
+    chart: mosip/datashare
     priority: -8
 
   prereg-gateway:
