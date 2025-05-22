@@ -70,6 +70,11 @@ apps:
     enabled: true
     version: 12.0.1
     chart: mosip/config-server
+    set:
+      resources.limits.cpu: 500m
+      resources.limits.memory: 2000Mi
+      resources.requests.cpu: 500m
+      resources.requests.memory: 1000Mi
     wait: true
     timeout: 600
     priority: -14
