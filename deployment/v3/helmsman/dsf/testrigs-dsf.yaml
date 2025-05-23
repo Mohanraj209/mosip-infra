@@ -25,7 +25,7 @@ apps:
     version: 0.0.1-develop
     chart: mosip/packetcreator
     set:
-      image.repository: "mosipdev/dsl-packetcreator"
+      image.repository: "mosipqa/dsl-packetcreator"
       image.tag: "develop"
       enable_insecure: false
       ingress.enabled: false
@@ -41,7 +41,7 @@ apps:
   apitestrig:
     namespace: apitestrig
     enabled: true
-    version: 0.0.1-develop
+    version: 1.3.2
     chart: mosip/apitestrig
     set:
       crontime: "0 2 * * *"
@@ -61,17 +61,17 @@ apps:
 
       modules.prereg.enabled: true
       modules.prereg.image.repository: mosipdev/apitest-prereg
-      modules.prereg.image.tag: develop
+      modules.prereg.image.tag: release-1.3.x
       modules.prereg.image.pullPolicy: Always
 
       modules.masterdata.enabled: true
-      modules.masterdata.image.repository: mosipdev/apitest-masterdata
-      modules.masterdata.image.tag: develop
+      modules.masterdata.image.repository: mosipqa/apitest-masterdata
+      modules.masterdata.image.tag: 1.3.x
       modules.masterdata.image.pullPolicy: Always
 
       modules.idrepo.enabled: true
-      modules.idrepo.image.repository: mosipdev/apitest-idrepo
-      modules.idrepo.image.tag: develop
+      modules.idrepo.image.repository: mosipid/apitest-idrepo
+      modules.idrepo.image.tag: 1.3.0-beta.1
       modules.idrepo.image.pullPolicy: Always
 
       modules.partner.enabled: true
@@ -80,22 +80,22 @@ apps:
       modules.partner.image.pullPolicy: Always
 
       modules.pms.enabled: true
-      modules.pms.image.repository: mosipdev/apitest-pms
+      modules.pms.image.repository: mosipqa/apitest-pms
       modules.pms.image.tag: develop
       modules.pms.image.pullPolicy: Always
 
       modules.resident.enabled: true
-      modules.resident.image.repository: mosipdev/apitest-resident
-      modules.resident.image.tag: develop
+      modules.resident.image.repository: mosipid/apitest-resident
+      modules.resident.image.tag: 1.3.0-beta.1
       modules.resident.image.pullPolicy: Always
 
       modules.auth.enabled: true
-      modules.auth.image.repository: mosipdev/apitest-auth
-      modules.auth.image.tag: develop
+      modules.auth.image.repository: mosipqa/apitest-auth
+      modules.auth.image.tag: 1.3.x
       modules.auth.image.pullPolicy: Always
 
       modules.esignet.enabled: false
-      modules.esignet.image.repository: mosipdev/apitest-esignet
+      modules.esignet.image.repository: mosipqa/apitest-esignet
       modules.esignet.image.tag: develop
       modules.esignet.image.pullPolicy: Always
 
@@ -125,7 +125,7 @@ apps:
     version: 0.0.1-develop
     chart: mosip/dslorchestrator
     set:
-      image.repository: "mosipdev/dsl-orchestrator"
+      image.repository: "mosipqa/dsl-orchestrator"
       image.tag: "develop"
       crontime: "0 4 * * *"
       dslorchestrator.configmaps.s3.s3-host: 'http://minio.minio:9000'

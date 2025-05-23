@@ -82,35 +82,35 @@ apps:
     set:
       dbUserPasswords.dbuserPassword: ""
       databases.mosip_master.enabled: "true"
-      databases.mosip_master.branch: "develop"
+      databases.mosip_master.branch: "release-1.3.x"
       databases.mosip_audit.enabled: "true"
-      databases.mosip_audit.branch: "develop"
+      databases.mosip_audit.branch: "release-1.3.x"
       databases.mosip_keymgr.enabled: "true"
-      databases.mosip_keymgr.branch: "develop"
+      databases.mosip_keymgr.branch: "release-1.3.x"
       databases.mosip_kernel.enabled: "true"
-      databases.mosip_kernel.branch: "develop"
+      databases.mosip_kernel.branch: "release-1.3.x"
       databases.mosip_idmap.enabled: "true"
-      databases.mosip_idmap.branch: "develop"
+      databases.mosip_idmap.branch: "release-1.3.x"
       databases.mosip_prereg.enabled: "true"
-      databases.mosip_prereg.branch: "develop"
+      databases.mosip_prereg.branch: "release-1.3.x"
       databases.mosip_idrepo.enabled: "true"
-      databases.mosip_idrepo.branch: "develop"
+      databases.mosip_idrepo.branch: "release-1.3.x"
       databases.mosip_ida.enabled: "true"
-      databases.mosip_ida.branch: "develop"
+      databases.mosip_ida.branch: "release-1.3.x"
       databases.mosip_credential.enabled: "true"
-      databases.mosip_credential.branch: "develop"
+      databases.mosip_credential.branch: "release-1.3.x"
       databases.mosip_regprc.enabled: "true"
-      databases.mosip_regprc.branch: "develop"
+      databases.mosip_regprc.branch: "release-1.3.x"
       databases.mosip_pms.enabled: "true"
-      databases.mosip_pms.branch: "develop"
+      databases.mosip_pms.branch: "release-1.3.x"
       databases.mosip_hotlist.enabled: "true"
-      databases.mosip_hotlist.branch: "develop"
+      databases.mosip_hotlist.branch: "release-1.3.x"
       databases.mosip_resident.enabled: "true"
-      databases.mosip_resident.branch: "develop"
+      databases.mosip_resident.branch: "release-1.3.x"
       databases.mosip_otp.enabled: "true"
-      databases.mosip_otp.branch: "develop"
+      databases.mosip_otp.branch: "release-1.3.x"
       databases.mosip_digitalcard.enabled: "true"
-      databases.mosip_digitalcard.branch: "develop"
+      databases.mosip_digitalcard.branch: "release-1.3.x"
     priority: -15
 
   keycloak:
@@ -183,7 +183,7 @@ apps:
       # resources.limits.cpu: "250m"
       # resources.limits.memory: "1Gi"
       resources.requests.cpu: "100m"
-      resources.requests.memory: "20Mi"
+      resources.requests.memory: "100Mi"
     wait: true
     priority: -12
 
@@ -196,7 +196,7 @@ apps:
       # resources.limits.cpu: "250m"
       # resources.limits.memory: "1Gi"
       resources.requests.cpu: "100m"
-      resources.requests.memory: "20Mi"
+      resources.requests.memory: "200Mi"
     wait: true
     priority: -11
 
