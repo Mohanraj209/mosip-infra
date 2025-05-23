@@ -245,7 +245,7 @@ apps:
     version: 0.0.1-develop
     chart: mosip/masterdata-loader
     set:
-      image.repository: "	mosipqa/masterdata-loader"
+      image.repository: "mosipqa/masterdata-loader"
       image.tag: "develop"
       mosipDataGithubBranch: "v1.3.0-beta.1"
       mosipDataGithubRepo: "https://github.com/mosip/mosip-data"
