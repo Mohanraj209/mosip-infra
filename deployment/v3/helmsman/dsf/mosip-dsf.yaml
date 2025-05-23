@@ -531,7 +531,7 @@ apps:
     version: 12.0.1
     chart: mosip/pms-policy
     set:
-      image.repository: "	mosipid/policy-management-service"
+      image.repository: "mosipid/policy-management-service"
       image.tag: "1.2.2.0"
       istio.corsPolicy.allowOrigins[0].prefix: "https://pmp.soil.mosip.net"
       istio.corsPolicy.allowOrigins[1].prefix: "https://pmp-revamp.soil.mosip.net"
