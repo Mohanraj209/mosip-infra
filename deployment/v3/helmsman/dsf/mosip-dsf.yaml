@@ -799,7 +799,7 @@ apps:
     version: 1.3.0-beta.1
     chart: mosip/ida-auth
     set:
-      image.repository: "mosipdqa/authentication-service"
+      image.repository: "mosipqa/authentication-service"
       image.tag: "1.3.x"
       enable_insecure: "false"
       persistence.enabled: "false"

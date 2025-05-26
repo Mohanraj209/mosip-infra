@@ -4,7 +4,7 @@
 # Set to "true" to continue to the next namespace even if jobs in the current namespace fail
 CONTINUE_ON_FAILURE=${CONTINUE_ON_FAILURE:-"true"}
 # Set to "true" to collect all failures and report them at the end instead of exiting immediately
-COLLECT_ALL_FAILURES=${COLLECT_ALL_FAILURES:-"true"}
+COLLECT_ALL_FAILURES=${COLLECT_ALL_FAILURES:-"false"}
 # Set timeout in seconds for waiting for a job to complete (default: 1 hour)
 JOB_TIMEOUT=${JOB_TIMEOUT:-1200}
 # Set timeout for an entire namespace's jobs (default: 20 minutes)

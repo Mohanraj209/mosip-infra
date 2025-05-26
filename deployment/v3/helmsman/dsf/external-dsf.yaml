@@ -224,7 +224,7 @@ apps:
       externalHost: "minio.soil.mosip.net"
     wait: true
     hooks:
-      postInstall: "$WORKDIR/hooks/s3-setup.sh <pretext-value>"
+      postInstall: "$WORKDIR/hooks/s3-setup.sh ''"
     priority: -2
 
   clamav:
@@ -263,7 +263,7 @@ apps:
   kafka: 
     namespace: kafka
     enabled: true
-    version: 26.11.4
+    version: 18.3.1
     chart: bitnami/kafka
     set:
       clusterDomain: "cluster.local"
@@ -305,7 +305,7 @@ apps:
   kafka-ui:
     namespace: kafka
     enabled: true
-    version: 0.7.1
+    version: 0.4.2
     chart: kafka-ui/kafka-ui
     set:
       envs.config.KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: "kafka.kafka:9092"
