@@ -263,7 +263,7 @@ apps:
   kafka: 
     namespace: kafka
     enabled: true
-    version: 18.3.1
+    version: 26.11.4
     chart: bitnami/kafka
     set:
       clusterDomain: "cluster.local"
@@ -305,7 +305,7 @@ apps:
   kafka-ui:
     namespace: kafka
     enabled: true
-    version: 0.4.2
+    version: 0.7.1
     chart: kafka-ui/kafka-ui
     set:
       envs.config.KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: "kafka.kafka:9092"
