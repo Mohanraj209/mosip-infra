@@ -224,7 +224,7 @@ apps:
       externalHost: "minio.soil.mosip.net"
     wait: true
     hooks:
-      postInstall: "$WORKDIR/hooks/s3-setup.sh ''"
+      postInstall: "$WORKDIR/hooks/s3-setup.sh "
     priority: -2
 
   clamav:
