@@ -8,7 +8,7 @@ if [ $# -ge 3 ] ; then
 fi
 
 NS=s3
-PRETEXT_VALUE="$1"
+PRETEXT_VALUE="${1-}"
 
 echo Create $NS namespace
 kubectl create ns $NS 
