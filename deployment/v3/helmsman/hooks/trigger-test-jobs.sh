@@ -6,8 +6,8 @@ CONTINUE_ON_FAILURE=${CONTINUE_ON_FAILURE:-"true"}
 # Set to "true" to collect all failures and report them at the end instead of exiting immediately
 COLLECT_ALL_FAILURES=${COLLECT_ALL_FAILURES:-"false"}
 # Set timeout in seconds for waiting for a job to complete (default: 1 hour)
-JOB_TIMEOUT=${JOB_TIMEOUT:-1200}
-# Set timeout for an entire namespace's jobs (default: 20 minutes)
+JOB_TIMEOUT=${JOB_TIMEOUT:-4680}
+# Set timeout for an entire namespace's jobs (default: 1.5hrs minutes)
 NAMESPACE_TIMEOUT=${NAMESPACE_TIMEOUT:-4680}
 
 # Global variables
