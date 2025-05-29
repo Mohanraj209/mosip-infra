@@ -138,8 +138,8 @@ apps:
     version: 0.1.0-beta.1
     chart: mosip/captcha
     set:
-      image.repository: "mosipdev/captcha-validation-service"
-      image.tag: "develop"
+      # image.repository: "mosipdev/captcha-validation-service"
+      # image.tag: "develop"
     priority: -13
     hooks:
       preInstall: "kubectl label ns captcha istio-injection=enabled --overwrite"

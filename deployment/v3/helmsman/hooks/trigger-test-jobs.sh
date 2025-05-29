@@ -8,7 +8,7 @@ COLLECT_ALL_FAILURES=${COLLECT_ALL_FAILURES:-"false"}
 # Set timeout in seconds for waiting for a job to complete (default: 1 hour)
 JOB_TIMEOUT=${JOB_TIMEOUT:-1200}
 # Set timeout for an entire namespace's jobs (default: 20 minutes)
-NAMESPACE_TIMEOUT=${NAMESPACE_TIMEOUT:-1200}
+NAMESPACE_TIMEOUT=${NAMESPACE_TIMEOUT:-4680}
 
 # Global variables
 FAILED_JOBS=()
