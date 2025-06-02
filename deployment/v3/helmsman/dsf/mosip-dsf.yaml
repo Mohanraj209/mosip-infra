@@ -140,6 +140,9 @@ apps:
     set:
       # image.repository: "mosipdev/captcha-validation-service"
       # image.tag: "develop"
+      extraEnvVars[0].name: MOSIP_CAPTCHA_SECRET_PREREGISTRATION
+      extraEnvVars[0].valueFrom.secretKeyRef.name: mosip-captcha
+      extraEnvVars[0].valueFrom.secretKeyRef.key: prereg-captcha-secret-key
     priority: -13
     hooks:
       preInstall: "kubectl label ns captcha istio-injection=enabled --overwrite"
