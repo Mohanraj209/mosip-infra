@@ -255,10 +255,11 @@ apps:
     wait: true
     priority: -8
     hooks:
-      postInstall: "$WORKDIR/hooks/captcha-setup.sh 6Lfj9VMrAAAAAFy8EFx7TtS4OhiF-GHlB1Oezxfy 6Lfj9VMrAAAAAP7GGpzhrpfFkFsGyf7xPutLlKzz 6Lc491MrAAAAAEGjPrkXF_eAFu-rWzLymEYY7uX5 6Lc491MrAAAAAPqAkBHzp2X-9jbQJNItcHCahlPc 6LdJ91MrAAAAAIkupIyA0eyv61UDA1esfvY1ta_c 6LdJ91MrAAAAAMHwdf3c2RBqdf8QbcIQwYkIdiiy"
+      postInstall: "$WORKDIR/hooks/captcha-setup.sh 6LfbOlUrAAAAANqvxygm37s-aWT974dvUug69fu9 6LfbOlUrAAAAAHK8e0FIKlaoWiSJ0f5nW1jSriI_ 6LdVO1UrAAAAAFBcSZmi2hMxp-OiVh_h5X-MrMxT 6LdVO1UrAAAAADWXE9dgcUq9PtoTh6bENVC0KDzF 6LdmO1UrAAAAAKrQChVz37dbt6SO3s_QYxWxZOVc 6LdmO1UrAAAAAKmUYamRLz-1OhZfRoFRHDYdTj-L"
   # Note: Create a google recaptcha v2 ("I am not a Robot") from Google Recaptcha Admin.
   # Pass the captcha site and secret key in the above post install script as an argument.To create site and secret key below is the link:
   # https://cloud.google.com/security/products/recaptcha
+  # https://www.google.com/recaptcha/admin/create
 
   kafka: 
     namespace: kafka
