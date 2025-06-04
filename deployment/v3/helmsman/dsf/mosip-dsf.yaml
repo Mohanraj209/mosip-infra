@@ -61,7 +61,7 @@ namespaces:
 apps:
   conf-secrets:
     namespace: conf-secrets 
-    enabled: false
+    enabled: true
     version: 0.0.1-develop
     chart: mosip/conf-secrets
     priority: -15
