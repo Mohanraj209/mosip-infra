@@ -289,8 +289,8 @@ apps:
     set:
       # image.repository: ""
       # image.tag: ""
-      resources.limits.cpu: 500m
-      resources.limits.memory: 3500Mi
+      resources.limits.cpu: 600m
+      resources.limits.memory: 4000Mi
       resources.requests.cpu: 500m
       resources.requests.memory: 3500Mi
       startupProbe.failureThreshold: 60
@@ -383,9 +383,9 @@ apps:
     enabled: true
     version: 1.3.0-beta.1
     chart: mosip/packetmanager
-    # set:
-    #   image.repository: "mosipdev/commons-packet-service"
-    #   image.tag: "develop"
+    set:
+      image.repository: "mosipqa/commons-packet-service"
+      image.tag: "1.3.x"
     priority: -8
 
 
