@@ -514,7 +514,7 @@ apps:
     # set:
     #   image.repository: "mosipdev/id-repository-vid-service"
     #   image.tag: "release-1.3.x"
-    priority: -6
+    priority: -5
 
 
   pms-partner:
@@ -843,7 +843,7 @@ apps:
       volumePermissions.enabled: false
       persistence.mountDir: "<volume_mount_path>"
       persistence.existingClaim: "<PVC_CLAIM_NAME>"
-    priority: -6
+    priority: -5
 
   print:
     namespace: print
