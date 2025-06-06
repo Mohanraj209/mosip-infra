@@ -289,7 +289,7 @@ apps:
     set:
       # image.repository: "mosipdev2/kernel-idgenerator-service"
       # image.tag: "release-1.3.x"
-      resources.limits.cpu: "800m"
+      resources.limits.cpu: "2"
       resources.limits.memory: "5500Mi"
       resources.requests.cpu: "800m"
       resources.requests.memory: "5500Mi"
