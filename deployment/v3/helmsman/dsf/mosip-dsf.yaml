@@ -287,8 +287,8 @@ apps:
     version: 1.3.0-beta.2
     chart: mosip/idgenerator
     set:
-      # image.repository: ""
-      # image.tag: ""
+      image.repository: "mosipdev2/kernel-idgenerator-service"
+      image.tag: "release-1.3.x"
       resources.limits.cpu: "800m"
       resources.limits.memory: "4500Mi"
       resources.requests.cpu: "800m"
