@@ -882,7 +882,6 @@ apps:
       resources.requests.cpu: "300m"
       resources.requests.memory: "2000Mi"
       startupProbe.failureThreshold: 60
-      enable_insecure: false
       istio.corsPolicy.allowOrigins[0].prefix: "https://resident.soil.mosip.net"
     timeout: 1000
     wait: true
