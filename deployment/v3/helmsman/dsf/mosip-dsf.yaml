@@ -287,13 +287,14 @@ apps:
     version: 1.3.0-beta.2
     chart: mosip/idgenerator
     set:
-      # image.repository: "mosipdev2/kernel-idgenerator-service"
-      # image.tag: "release-1.3.x"
+      image.repository: "bn46/kernel-idgenerator-service"
+      image.tag: "develop"
       resources.limits.cpu: "2"
-      resources.limits.memory: "5500Mi"
+      resources.limits.memory: "10000Mi"
       resources.requests.cpu: "700m"
       resources.requests.memory: "3500Mi"
-      startupProbe.failureThreshold: "80"
+      startupProbe.failureThreshold: "60"
+
     priority: -9
 
   
@@ -358,6 +359,7 @@ apps:
       resources.limits.memory: "5000Mi"
       resources.requests.cpu: "300m"
       resources.requests.memory: "2500Mi"
+      startupProbe.failureThreshold: "60"
     priority: -9
 
   
