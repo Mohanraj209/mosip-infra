@@ -290,10 +290,11 @@ apps:
       image.repository: "bn46/kernel-idgenerator-service"
       image.tag: "develop"
       resources.limits.cpu: "2"
-      resources.limits.memory: "10000Mi"
+      resources.limits.memory: "8000Mi"
       resources.requests.cpu: "700m"
       resources.requests.memory: "3500Mi"
-      startupProbe.failureThreshold: "60"
+      startupProbe.failureThreshold: "300"
+      startupProbe.periodSeconds: "5"
 
     priority: -9
 
