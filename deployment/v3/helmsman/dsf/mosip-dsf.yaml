@@ -291,10 +291,9 @@ apps:
       # image.tag: "release-1.3.x"
       resources.limits.cpu: "2"
       resources.limits.memory: "5500Mi"
-      resources.requests.cpu: "800m"
-      resources.requests.memory: "5500Mi"
-      startupProbe.failureThreshold: "60"
-    timeout: 600
+      resources.requests.cpu: "700m"
+      resources.requests.memory: "3500Mi"
+      startupProbe.failureThreshold: "80"
     priority: -9
 
   
