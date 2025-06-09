@@ -968,7 +968,6 @@ apps:
     priority: -1
     hooks:
       preInstall: "$WORKDIR/hooks/mosip-file-server-setup.sh"
-      postInstall: "$WORKDIR/hooks/post-install-mosip-file-server-setup.sh"
   
   regclient:
     namespace: regclient

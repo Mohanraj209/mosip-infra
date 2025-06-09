@@ -6,6 +6,13 @@ function installing_mfs() {
   kubectl -n $NS --ignore-not-found=true delete configmap mosip-file-server
   kubectl -n $NS --ignore-not-found=true delete secret keycloak-client-secret
 
+
+  KEYCLOAK_CLIENT_SECRET=$(kubectl -n keycloak get secrets keycloak-client-secrets -o yaml | awk '/mosip_regproc_client_secret: /{print $2}' | base64 -d)
+  kubectl create secret generic keycloak-client-secret \
+  --namespace=$NS \
+  --from-literal=KEYCLOAK_CLIENT_SECRET=$KEYCLOAK_CLIENT_SECRET
+  #--annotations="meta.helm.sh/release-name=mosip-file-server,meta.helm.sh/release-namespace=mosip-file-server"
+
   return 0
 }
 
