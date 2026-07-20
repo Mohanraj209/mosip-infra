@@ -7,8 +7,8 @@
 name: Kubernetes Cluster Health Check
 
 on:
-  schedule:
-    - cron: '0 */6 * * *'       # Every 6 hours UTC
+#   schedule:
+#     - cron: '0 */6 * * *'       # Every 6 hours UTC
   workflow_dispatch:
     inputs:
       environments:
